@@ -4,8 +4,7 @@
 <dict>
 	<key>fileTypes</key>
 	<array>
-		<string>conf</string>
-		<string>.conf</string>
+		<string>dialplan</string>
 	</array>
 	<key>name</key>
 	<string>asterisk</string>
@@ -13,208 +12,97 @@
 	<array>
 		<dict>
 			<key>include</key>
+			<string>#application_call</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>#function_call</string>
+		</dict>
+		<dict>
+			<key>include</key>
+			<string>#arg_call</string>
+		</dict>
+		<dict>
+			<key>include</key>
 			<string>#Comment</string>
 		</dict>
 		<dict>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>storage.modifier</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>#Extention</string>
-						</dict>
-					</array>
-				</dict>
-				<key>3</key>
-				<dict>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>#Priority</string>
-						</dict>
-					</array>
-				</dict>
-				<key>4</key>
-				<dict>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>#Application</string>
-						</dict>
-					</array>
-				</dict>
-			</dict>
-			<key>match</key>
-			<string>(^\s*exten\s+\=\&gt;\s+([^,]*),([^,]*),([^;]+)\s*)</string>
+			<key>include</key>
+			<string>#String</string>
 		</dict>
 		<dict>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>storage.modifier</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>#Priority</string>
-						</dict>
-					</array>
-				</dict>
-				<key>3</key>
-				<dict>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>#Application</string>
-						</dict>
-					</array>
-				</dict>
-			</dict>
+			<key>include</key>
+			<string>#Expression</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>^\s*\[</string>
+			<key>contentName</key>
+			<string>support.class.name</string>
+			<key>end</key>
+			<string>\]</string>
+			<key>name</key>
+			<string>punctuation.section.parens.begin</string>
+		</dict>
+		<dict>
 			<key>match</key>
-			<string>(^\s*same\s+\=\&gt;\s+([^,]*),([^;]+)\s*)</string>
+			<string>\=&gt;?</string>
+			<key>name</key>
+			<string>keyword.operator.assignment</string>
 		</dict>
 	</array>
 	<key>repository</key>
 	<dict>
-		<key>Application</key>
-		<dict>
-			<key>begin</key>
-			<string>(?i)(absolutetimeout|addqueuemember|adsiprog|agentcallbacklogin|agentlogin|agentmonitoroutgoing|agi|alarmreceiver|alsamonitor|amd|answer|appendcdruserfield|asteriskcmgnbscat|authenticate|background|backgrounddetect|bridge|busy|callerid|callingpres|changemonitor|chanisavail|channelredirect|chanspy|checkgroup|confbridge|congestion|controlplayback|dbdel|dbdeltree|dbquery|dbrewrite|deadagi|dial|dictate|digittimeout|directory|disa|dtmftotext|dundilookup|eagi|echo|endwhile|enumlookup|execif|extenspy|festival|flash|flite|forkcdr|getcpeid|getgroupcount|getgroupmatchcount|gosub|gosubif|goto|gotoif|gotoiftime|hangup|hasnewvoicemail|hasvoicemail|ices|importvar|jabbersend|jabberstatus|lookupblacklist|lookupcidname|macro|macroexclusive|macroexit|mailboxexists|meetme|meetmeadmin|meetmecount|milliwatt|minivm|mixmonitor|monitor|mp3player|musiconhold|mysql|nocdr|noop|page|parkandannounce|parkedcall|pausequeuemember|perl|pickup|pickup|playback|playtones|pppd|privacymanager|progress|queue|read|realtime|record|removequeuemember|resetcdr|responsetimeout|retrydial|return|ringing|rpt|sayalpha|saydigits|saynumber|sayphonetic|sayunixtime|senddtmf|sendimage|sendtext|sendurl|set|setaccount|setamaflags|setcallerid|setcallerpres|setcdruserfield|setglobalvar|setvar|sipaddheader|sipcallpickup|sipdtmfmode|sipgetheader|sms|softhangup|srxdeflect|srxechocan|srxmwi|stackpop|steal|stopmixmonitor|stopmonitor|stopplaytones|system|testclient|testserver|transfer|trysystem|txtcidname|unpausequeuemember|userevent|verbose|vmauthenticate|voicemail|voicemail|voicemailmain|wait|waitexten|waitforring|waitmusiconhold|while|zapateller|zapbarge|zapras|zapscan|zapsendkeypadfacility)(\()</string>
-			<key>beginCaptures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>support.class</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.section.parens.begin</string>
-				</dict>
-			</dict>
-			<key>end</key>
-			<string>(\))</string>
-			<key>endCaptures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.section.parens.end</string>
-				</dict>
-			</dict>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>#Function</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>$self</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#Expression</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#Variable</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#String</string>
-				</dict>
-			</array>
-		</dict>
 		<key>Comment</key>
 		<dict>
 			<key>begin</key>
-			<string>(?=;)</string>
-			<key>contentName</key>
-			<string>comment.line</string>
+			<string>;</string>
 			<key>end</key>
 			<string>$</string>
+			<key>name</key>
+			<string>comment.line</string>
 		</dict>
 		<key>Expression</key>
 		<dict>
 			<key>begin</key>
-			<string>\$\[</string>
-			<key>end</key>
-			<string>\]</string>
-			<key>name</key>
-			<string>keyword.other</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>$self</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#Variable</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#String</string>
-				</dict>
-			</array>
-		</dict>
-		<key>Extention</key>
-		<dict>
-			<key>match</key>
-			<string>[^,]</string>
-			<key>name</key>
-			<string>string.regexp</string>
-		</dict>
-		<key>Function</key>
-		<dict>
-			<key>begin</key>
-			<string>(?i)(aes_decrypt|aes_encrypt|agc|agent|array|ast_config|audiohook_inherit|base64_decode|base64_encode|blacklist|callerid|callerpres|cdr|channel|channels|check_md5|checksipdomain|clearhash|confbridge|confbridge_info|connectedline|csv_quote|curl|curlopt|cut|db|db_delete|db_exists|dec|denoise|device_state|dialgroup|dialplan_exists|dundilookup|dundiquery|dundiresult|enumlookup|enumquery|enumresult|env|eval|exception|exists|extension_state|fieldqty|file|filter|getcodec|group|group_count|group_list|group_match_count|hash|hashkeys|hint|iaxchaninfo|iaxpeer|iaxvar|if|ifmodule|iftime|import|inc|isnull|jack_hook|keypadhash|language|len|local|lock|math|md5|musicclass|odbc|queue_member_count|queue_member_list|queue_waiting_count|queueagentcount|quote|rand|realtime|regex|replace|set|sha1|shared|shell|sip_header|sipaddheader|sipchaninfo|sippeer|sort|sql_esc|stat|strftime|strptime|sysinfo|timeout|tolower|toupper|trylock|txtcidname|unlock|uridecode|uriencode|vmcount|volume)(\()</string>
+			<string>\$(\[)</string>
 			<key>beginCaptures</key>
 			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.other</string>
+				</dict>
 				<key>1</key>
 				<dict>
 					<key>name</key>
-					<string>support.function</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.section.parens.begin</string>
+					<string>punctuation.section.expression.begin</string>
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>(\))</string>
+			<string>\]</string>
 			<key>endCaptures</key>
 			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.other</string>
+				</dict>
 				<key>1</key>
 				<dict>
 					<key>name</key>
-					<string>punctuation.section.parens.end</string>
+					<string>punctuation.section.expression.end</string>
 				</dict>
 			</dict>
 			<key>patterns</key>
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#Expression</string>
+					<string>#function_call</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#application_call</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -228,52 +116,388 @@
 					<key>include</key>
 					<string>$self</string>
 				</dict>
+				<dict>
+					<key>match</key>
+					<string>[^{}()[]]+</string>
+					<key>name</key>
+					<string>variable.parameter</string>
+				</dict>
 			</array>
-		</dict>
-		<key>Priority</key>
-		<dict>
-			<key>match</key>
-			<string>[^,]</string>
-			<key>name</key>
-			<string>support.constant</string>
 		</dict>
 		<key>String</key>
 		<dict>
 			<key>begin</key>
 			<string>"</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.string.begin</string>
+				</dict>
+			</dict>
 			<key>end</key>
 			<string>"</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.string.end</string>
+				</dict>
+			</dict>
 			<key>name</key>
-			<string>string.quoted.double.untitled</string>
+			<string>string.quoted.double</string>
 			<key>patterns</key>
 			<array>
 				<dict>
 					<key>include</key>
+					<string>#function_call</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#application_call</string>
+				</dict>
+				<dict>
+					<key>include</key>
 					<string>#Variable</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#Expression</string>
 				</dict>
 			</array>
 		</dict>
 		<key>Variable</key>
 		<dict>
 			<key>begin</key>
-			<string>\${</string>
+			<string>\$({)</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>constant.numeric.integer</string>
+				</dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.section.begin.variable</string>
+				</dict>
+			</dict>
 			<key>end</key>
-			<string>}</string>
-			<key>name</key>
-			<string>variable.other</string>
+			<string>(})</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>constant.numeric.integer</string>
+				</dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.section.variable.end</string>
+				</dict>
+			</dict>
 			<key>patterns</key>
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#Class</string>
+					<string>#function_call</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#Function</string>
+					<string>#application_call</string>
 				</dict>
 				<dict>
 					<key>include</key>
 					<string>#self</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>[^{}()[]]+</string>
+					<key>name</key>
+					<string>variable.parameter</string>
+				</dict>
+			</array>
+		</dict>
+		<key>application_call</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>(?xi)
+								(\.)?
+								\b(
+									absolutetimeout | addqueuemember | adsiprog | agentcallbacklogin | agentlogin |
+									agentmonitoroutgoing | agi | alarmreceiver | alsamonitor | amd | answer |
+									appendcdruserfield | asteriskcmgnbscat | authenticate | background | backgrounddetect |
+									bridge | busy | callerid | callingpres | changemonitor | chanisavail | channelredirect |
+									chanspy | checkgroup | confbridge | congestion | controlplayback | dbdel | dbdeltree |
+									dbquery | dbrewrite | deadagi | dial | dictate | digittimeout | directory | disa |
+									dtmftotext | dundilookup | eagi | echo | endwhile | enumlookup | execif | extenspy |
+									festival | flash | flite | forkcdr | getcpeid | getgroupcount | getgroupmatchcount |
+									gosub | gosubif | goto | gotoif | gotoiftime | hangup | hasnewvoicemail | hasvoicemail |
+									ices | importvar | jabbersend | jabberstatus | lookupblacklist | lookupcidname | macro |
+									macroexclusive | macroexit | mailboxexists | meetme | meetmeadmin | meetmecount |
+									milliwatt | minivm | mixmonitor | monitor | mp3player | musiconhold | mysql | nocdr |
+									noop | page | parkandannounce | parkedcall | pausequeuemember | perl | pickup | pickup |
+									playback | playtones | pppd | privacymanager | progress | queue | read | realtime |
+									record | removequeuemember | resetcdr | responsetimeout | retrydial | return | ringing |
+									rpt | sayalpha | saydigits | saynumber | sayphonetic | sayunixtime | senddtmf |
+									sendimage | sendtext | sendurl | set | setaccount | setamaflags | setcallerid |
+									setcallerpres | setcdruserfield | setglobalvar | setvar | sipaddheader | sipcallpickup |
+									sipdtmfmode | sipgetheader | sms | softhangup | srxdeflect | srxechocan | srxmwi |
+									stackpop | steal | stopmixmonitor | stopmonitor | stopplaytones | system | testclient |
+									testserver | transfer | trysystem | txtcidname | unpausequeuemember | userevent |
+									verbose | vmauthenticate | voicemail | voicemail | voicemailmain | wait | waitexten |
+									waitforring | waitmusiconhold | while | zapateller | zapbarge | zapras| zapscan |
+									zapsendkeypadfacility
+								)
+								\s*(?=(\())</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>entity.name.function</string>
+						</dict>
+						<key>4</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.arguments.begin</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(\))</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.arguments.end</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>meta.application-call</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>begin</key>
+							<string>(\()</string>
+							<key>beginCaptures</key>
+							<dict>
+								<key>1</key>
+								<dict>
+									<key>name</key>
+									<string>punctuation.definition.arguments.begin</string>
+								</dict>
+							</dict>
+							<key>contentName</key>
+							<string>meta.function-call.arguments</string>
+							<key>end</key>
+							<string>(?=\))</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>include</key>
+									<string>#function_call</string>
+								</dict>
+								<dict>
+									<key>include</key>
+									<string>#Expression</string>
+								</dict>
+								<dict>
+									<key>include</key>
+									<string>#Variable</string>
+								</dict>
+								<dict>
+									<key>include</key>
+									<string>#String</string>
+								</dict>
+								<dict>
+									<key>include</key>
+									<string>$self</string>
+								</dict>
+							</array>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>arg_call</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>(?xi)\b(\d)\s*(?=(\())</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>support.function.magic.call</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.arguments.begin</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(\))</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.arguments.end</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>meta.arg-call</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>begin</key>
+							<string>(\()</string>
+							<key>beginCaptures</key>
+							<dict>
+								<key>1</key>
+								<dict>
+									<key>name</key>
+									<string>punctuation.definition.arguments.begin</string>
+								</dict>
+							</dict>
+							<key>contentName</key>
+							<string>meta.function-call.arguments</string>
+							<key>end</key>
+							<string>(?=\))</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>include</key>
+									<string>#application_call</string>
+								</dict>
+								<dict>
+									<key>include</key>
+									<string>#Expression</string>
+								</dict>
+								<dict>
+									<key>include</key>
+									<string>#Variable</string>
+								</dict>
+								<dict>
+									<key>include</key>
+									<string>#String</string>
+								</dict>
+								<dict>
+									<key>include</key>
+									<string>$self</string>
+								</dict>
+							</array>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<key>function_call</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>(?xi)
+								(\.)?
+								\b(
+									aes_decrypt | aes_encrypt | agc | agent | array | ast_config | audiohook_inherit |
+									base64_decode | base64_encode | blacklist | callerid | callerpres | cdr |
+									channel | channels | check_md5 | checksipdomain | clearhash | confbridge |
+									confbridge_info | connectedline | csv_quote | curl | curlopt | cut | db |
+									db_delete | db_exists | dec | denoise | device_state | dialgroup |
+									dialplan_exists | dundilookup | dundiquery | dundiresult | enumlookup |
+									enumquery | enumresult | env | eval | exception | exists | extension_state |
+									fieldqty | file | filter | getcodec | group | group_count | group_list |
+									group_match_count | hash | hashkeys | hint | iaxchaninfo | iaxpeer | iaxvar | if |
+									ifmodule | iftime | import | inc | isnull | jack_hook | keypadhash | language |
+									len | local | lock | math | md5 | musicclass | odbc | queue_member_count |
+									queue_member_list | queue_waiting_count | queueagentcount | quote | rand |
+									realtime | regex | replace | set | sha1 | shared | shell | sip_header |
+									sipaddheader | sipchaninfo | sippeer | sort | sql_esc | stat | strftime |
+									strptime | sysinfo | timeout | tolower | toupper | trylock | txtcidname | unlock |
+									uridecode | uriencode | vmcount | volume
+								)
+								\s*(?=(\())</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>entity.name.function</string>
+						</dict>
+						<key>4</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.arguments.begin</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(\))</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.arguments.end</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>meta.function-call</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>begin</key>
+							<string>(\()</string>
+							<key>beginCaptures</key>
+							<dict>
+								<key>1</key>
+								<dict>
+									<key>name</key>
+									<string>punctuation.definition.arguments.begin</string>
+								</dict>
+							</dict>
+							<key>contentName</key>
+							<string>meta.function-call.arguments</string>
+							<key>end</key>
+							<string>(?=\))</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>include</key>
+									<string>#application_call</string>
+								</dict>
+								<dict>
+									<key>include</key>
+									<string>#Expression</string>
+								</dict>
+								<dict>
+									<key>include</key>
+									<string>#Variable</string>
+								</dict>
+								<dict>
+									<key>include</key>
+									<string>#String</string>
+								</dict>
+								<dict>
+									<key>include</key>
+									<string>$self</string>
+								</dict>
+							</array>
+						</dict>
+					</array>
 				</dict>
 			</array>
 		</dict>

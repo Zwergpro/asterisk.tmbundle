@@ -1,92 +1,210 @@
 {	patterns = (
+		{	include = '#application_call'; },
+		{	include = '#function_call'; },
+		{	include = '#arg_call'; },
 		{	include = '#Comment'; },
-		{	match = '(^\s*exten\s+\=\>\s+([^,]*),([^,]*),([^;]+)\s*)';
-			captures = {
-				1 = { name = 'storage.modifier'; };
-				2 = { patterns = ( { include = '#Extention'; } ); };
-				3 = { patterns = ( { include = '#Priority'; } ); };
-				4 = { patterns = ( { include = '#Application'; } ); };
-			};
+		{	include = '#String'; },
+		{	include = '#Expression'; },
+		{	name = 'punctuation.section.parens.begin';
+			begin = '^\s*\[';
+			end = '\]';
+			contentName = 'support.class.name';
 		},
-		{	match = '(^\s*same\s+\=\>\s+([^,]*),([^;]+)\s*)';
-			captures = {
-				1 = { name = 'storage.modifier'; };
-				2 = { patterns = ( { include = '#Priority'; } ); };
-				3 = { patterns = ( { include = '#Application'; } ); };
-			};
+		{	name = 'keyword.operator.assignment';
+			match = '\=>?';
 		},
 	);
 	repository = {
-		Application = {
-			begin = '(?i)(absolutetimeout|addqueuemember|adsiprog|agentcallbacklogin|agentlogin|agentmonitoroutgoing|agi|alarmreceiver|alsamonitor|amd|answer|appendcdruserfield|asteriskcmgnbscat|authenticate|background|backgrounddetect|bridge|busy|callerid|callingpres|changemonitor|chanisavail|channelredirect|chanspy|checkgroup|confbridge|congestion|controlplayback|dbdel|dbdeltree|dbquery|dbrewrite|deadagi|dial|dictate|digittimeout|directory|disa|dtmftotext|dundilookup|eagi|echo|endwhile|enumlookup|execif|extenspy|festival|flash|flite|forkcdr|getcpeid|getgroupcount|getgroupmatchcount|gosub|gosubif|goto|gotoif|gotoiftime|hangup|hasnewvoicemail|hasvoicemail|ices|importvar|jabbersend|jabberstatus|lookupblacklist|lookupcidname|macro|macroexclusive|macroexit|mailboxexists|meetme|meetmeadmin|meetmecount|milliwatt|minivm|mixmonitor|monitor|mp3player|musiconhold|mysql|nocdr|noop|page|parkandannounce|parkedcall|pausequeuemember|perl|pickup|pickup|playback|playtones|pppd|privacymanager|progress|queue|read|realtime|record|removequeuemember|resetcdr|responsetimeout|retrydial|return|ringing|rpt|sayalpha|saydigits|saynumber|sayphonetic|sayunixtime|senddtmf|sendimage|sendtext|sendurl|set|setaccount|setamaflags|setcallerid|setcallerpres|setcdruserfield|setglobalvar|setvar|sipaddheader|sipcallpickup|sipdtmfmode|sipgetheader|sms|softhangup|srxdeflect|srxechocan|srxmwi|stackpop|steal|stopmixmonitor|stopmonitor|stopplaytones|system|testclient|testserver|transfer|trysystem|txtcidname|unpausequeuemember|userevent|verbose|vmauthenticate|voicemail|voicemail|voicemailmain|wait|waitexten|waitforring|waitmusiconhold|while|zapateller|zapbarge|zapras|zapscan|zapsendkeypadfacility)(\()';
-			end = '(\))';
-			beginCaptures = {
-				1 = { name = 'support.class'; };
-				2 = { name = 'punctuation.section.parens.begin'; };
-			};
-			endCaptures = { 1 = { name = 'punctuation.section.parens.end'; }; };
-			patterns = (
-				{	include = '#Function'; },
-				{	include = '$self'; },
-				{	include = '#Expression'; },
-				{	include = '#Variable'; },
-				{	include = '#String'; },
-			);
-		};
 		Comment = {
-			begin = '(?=;)';
+			name = 'comment.line';
+			begin = ';';
 			end = '$';
-			contentName = 'comment.line';
 		};
 		Expression = {
-			name = 'keyword.other';
-			begin = '\$\[';
+			begin = '\$(\[)';
 			end = '\]';
-			patterns = (
-				{	include = '$self'; },
-				{	include = '#Variable'; },
-				{	include = '#String'; },
-			);
-		};
-		Extention = {
-			name = 'string.regexp';
-			match = '[^,]';
-		};
-		Function = {
-			begin = '(?i)(aes_decrypt|aes_encrypt|agc|agent|array|ast_config|audiohook_inherit|base64_decode|base64_encode|blacklist|callerid|callerpres|cdr|channel|channels|check_md5|checksipdomain|clearhash|confbridge|confbridge_info|connectedline|csv_quote|curl|curlopt|cut|db|db_delete|db_exists|dec|denoise|device_state|dialgroup|dialplan_exists|dundilookup|dundiquery|dundiresult|enumlookup|enumquery|enumresult|env|eval|exception|exists|extension_state|fieldqty|file|filter|getcodec|group|group_count|group_list|group_match_count|hash|hashkeys|hint|iaxchaninfo|iaxpeer|iaxvar|if|ifmodule|iftime|import|inc|isnull|jack_hook|keypadhash|language|len|local|lock|math|md5|musicclass|odbc|queue_member_count|queue_member_list|queue_waiting_count|queueagentcount|quote|rand|realtime|regex|replace|set|sha1|shared|shell|sip_header|sipaddheader|sipchaninfo|sippeer|sort|sql_esc|stat|strftime|strptime|sysinfo|timeout|tolower|toupper|trylock|txtcidname|unlock|uridecode|uriencode|vmcount|volume)(\()';
-			end = '(\))';
 			beginCaptures = {
-				1 = { name = 'support.function'; };
-				2 = { name = 'punctuation.section.parens.begin'; };
+				0 = { name = 'keyword.other'; };
+				1 = { name = 'punctuation.section.expression.begin'; };
 			};
-			endCaptures = { 1 = { name = 'punctuation.section.parens.end'; }; };
+			endCaptures = {
+				0 = { name = 'keyword.other'; };
+				1 = { name = 'punctuation.secion.expression.end'; };
+			};
 			patterns = (
-				{	include = '#Expression'; },
+				{	include = '#function_call'; },
+				{	include = '#application_call'; },
 				{	include = '#Variable'; },
 				{	include = '#String'; },
 				{	include = '$self'; },
+				{
+					name='variable.parameter';
+					match='[^{}()[]]+';
+				}
 			);
-		};
-		Priority = {
-			name = 'support.constant';
-			match = '[^,]';
 		};
 		String = {
-			name = 'string.quoted.double.untitled';
+			name = 'string.quoted.double';
 			begin = '"';
 			end = '"';
-			patterns = ( { include = '#Variable'; } );
+			beginCaptures = { 0 = { name = 'punctuation.definition.string.begin'; }; };
+			endCaptures = { 0 = { name = 'punctuation.definition.string.end'; }; };
+			patterns = (
+				{	include = '#function_call'; },
+				{	include = '#application_call'; },
+				{	include = '#Variable'; },
+				{	include = '#Expression'; },
+			);
 		};
 		Variable = {
-			name = 'variable.other';
-			begin = '\${';
-			end = '}';
+			begin = '\$({)';
+			end = '(})';
+			beginCaptures = {
+				0 = { name = 'constant.numeric.integer'; };
+				1 = { name = 'punctuation.section.begin.variable'; };
+			};
+			endCaptures = {
+				0 = { name = 'constant.numeric.integer'; };
+				1 = { name = 'punctuation.section.variable.end'; };
+			};
 			patterns = (
-				{	include = '#Class'; },
-				{	include = '#Function'; },
+				{	include = '#function_call'; },
+				{	include = '#application_call'; },
 				{	include = '#self'; },
+				{
+					name='variable.parameter';
+					match='[^{}()[]]+';
+				}
+			);
+		};
+		application_call = {
+			patterns = (
+				{	name = 'meta.application-call';
+					begin = '(?xi)
+								(\.)?
+								\b(
+									absolutetimeout | addqueuemember | adsiprog | agentcallbacklogin | agentlogin |
+									agentmonitoroutgoing | agi | alarmreceiver | alsamonitor | amd | answer |
+									appendcdruserfield | asteriskcmgnbscat | authenticate | background | backgrounddetect |
+									bridge | busy | callerid | callingpres | changemonitor | chanisavail | channelredirect |
+									chanspy | checkgroup | confbridge | congestion | controlplayback | dbdel | dbdeltree |
+									dbquery | dbrewrite | deadagi | dial | dictate | digittimeout | directory | disa |
+									dtmftotext | dundilookup | eagi | echo | endwhile | enumlookup | execif | extenspy |
+									festival | flash | flite | forkcdr | getcpeid | getgroupcount | getgroupmatchcount |
+									gosub | gosubif | goto | gotoif | gotoiftime | hangup | hasnewvoicemail | hasvoicemail |
+									ices | importvar | jabbersend | jabberstatus | lookupblacklist | lookupcidname | macro |
+									macroexclusive | macroexit | mailboxexists | meetme | meetmeadmin | meetmecount |
+									milliwatt | minivm | mixmonitor | monitor | mp3player | musiconhold | mysql | nocdr |
+									noop | page | parkandannounce | parkedcall | pausequeuemember | perl | pickup | pickup |
+									playback | playtones | pppd | privacymanager | progress | queue | read | realtime |
+									record | removequeuemember | resetcdr | responsetimeout | retrydial | return | ringing |
+									rpt | sayalpha | saydigits | saynumber | sayphonetic | sayunixtime | senddtmf |
+									sendimage | sendtext | sendurl | set | setaccount | setamaflags | setcallerid |
+									setcallerpres | setcdruserfield | setglobalvar | setvar | sipaddheader | sipcallpickup |
+									sipdtmfmode | sipgetheader | sms | softhangup | srxdeflect | srxechocan | srxmwi |
+									stackpop | steal | stopmixmonitor | stopmonitor | stopplaytones | system | testclient |
+									testserver | transfer | trysystem | txtcidname | unpausequeuemember | userevent |
+									verbose | vmauthenticate | voicemail | voicemail | voicemailmain | wait | waitexten |
+									waitforring | waitmusiconhold | while | zapateller | zapbarge | zapras| zapscan |
+									zapsendkeypadfacility
+								)
+								\s*(?=(\())';
+					end = '(\))';
+					beginCaptures = {
+						2 = { name = 'entity.name.function'; };
+						4 = { name = 'punctuation.definition.arguments.begin'; };
+					};
+					endCaptures = { 1 = { name = 'punctuation.definition.arguments.end'; }; };
+					patterns = (
+						{	begin = '(\()';
+							end = '(?=\))';
+							beginCaptures = { 1 = { name = 'punctuation.definition.arguments.begin'; }; };
+							contentName = 'meta.function-call.arguments';
+							patterns = (
+								{	include = '#function_call'; },
+								{	include = '#Expression'; },
+								{	include = '#Variable'; },
+								{	include = '#String'; },
+								{	include = '$self'; },
+							);
+						},
+					);
+				},
+			);
+		};
+		arg_call = {
+			patterns = (
+				{	name = 'meta.arg-call';
+					begin = '(?xi)\b(\d)\s*(?=(\())';
+					end = '(\))';
+					beginCaptures = {
+						1 = { name = 'support.function.magic.call'; };
+						3 = { name = 'punctuation.definition.arguments.begin'; };
+					};
+					endCaptures = { 1 = { name = 'punctuation.definition.arguments.end'; }; };
+					patterns = (
+						{	begin = '(\()';
+							end = '(?=\))';
+							beginCaptures = { 1 = { name = 'punctuation.definition.arguments.begin'; }; };
+							contentName = 'meta.function-call.arguments';
+							patterns = (
+								{	include = '#application_call'; },
+								{	include = '#Expression'; },
+								{	include = '#Variable'; },
+								{	include = '#String'; },
+								{	include = '$self'; },
+							);
+						},
+					);
+				},
+			);
+		};
+		function_call = {
+			patterns = (
+				{	name = 'meta.function-call';
+					begin = '(?xi)
+								(\.)?
+								\b(
+									aes_decrypt | aes_encrypt | agc | agent | array | ast_config | audiohook_inherit |
+									base64_decode | base64_encode | blacklist | callerid | callerpres | cdr |
+									channel | channels | check_md5 | checksipdomain | clearhash | confbridge |
+									confbridge_info | connectedline | csv_quote | curl | curlopt | cut | db |
+									db_delete | db_exists | dec | denoise | device_state | dialgroup |
+									dialplan_exists | dundilookup | dundiquery | dundiresult | enumlookup |
+									enumquery | enumresult | env | eval | exception | exists | extension_state |
+									fieldqty | file | filter | getcodec | group | group_count | group_list |
+									group_match_count | hash | hashkeys | hint | iaxchaninfo | iaxpeer | iaxvar | if |
+									ifmodule | iftime | import | inc | isnull | jack_hook | keypadhash | language |
+									len | local | lock | math | md5 | musicclass | odbc | queue_member_count |
+									queue_member_list | queue_waiting_count | queueagentcount | quote | rand |
+									realtime | regex | replace | set | sha1 | shared | shell | sip_header |
+									sipaddheader | sipchaninfo | sippeer | sort | sql_esc | stat | strftime |
+									strptime | sysinfo | timeout | tolower | toupper | trylock | txtcidname | unlock |
+									uridecode | uriencode | vmcount | volume
+								)
+								\s*(?=(\())';
+					end = '(\))';
+					beginCaptures = {
+						2 = { name = 'entity.name.function'; };
+						4 = { name = 'punctuation.definition.arguments.begin'; };
+					};
+					endCaptures = { 1 = { name = 'punctuation.definition.arguments.end'; }; };
+					patterns = (
+						{	begin = '(\()';
+							end = '(?=\))';
+							beginCaptures = { 1 = { name = 'punctuation.definition.arguments.begin'; }; };
+							contentName = 'meta.function-call.arguments';
+							patterns = (
+								{	include = '#application_call'; },
+								{	include = '#Expression'; },
+								{	include = '#Variable'; },
+								{	include = '#String'; },
+								{	include = '$self'; },
+							);
+						},
+					);
+				},
 			);
 		};
 	};
-}
-
+}t
